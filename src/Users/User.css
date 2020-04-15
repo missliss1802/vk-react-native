@@ -1,0 +1,42 @@
+#profile a {
+	text-decoration: none;
+	color: white;
+	line-height: 1.7;
+}
+
+#profile h4 {
+	font-size: 20px;
+	margin: 0;
+}
+
+#profile h3 {
+	color: white;
+	margin: 0;
+	margin-top: 10px;
+	font-size: 30px;
+	margin-bottom: 30px;
+	display: inline;
+}
+
+#profile p, a {
+	color: white;
+	line-height: 1.7;
+	margin: 0;
+}
+
+#profile img {
+	margin-left: 0;
+	margin-right: 50px;
+	max-width: 400px;
+	float: left;
+	
+}
+
+#profile #status {
+	margin-bottom: 15px;
+}
+
+#profile {
+	margin-left: 20px;
+}
+

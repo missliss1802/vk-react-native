@@ -82,10 +82,12 @@ const Friends = (props) => {
     },
     friend: {
         color: 'white',
-        backgroundColor: '#5F92DD',
-        padding: 10,
+        backgroundColor: '#000',
+        padding: 8,
         margin: 10,
-        borderRadius: 20
+        borderWidth: 1,
+        borderColor: '#aaa',
+        borderRadius: 5
     },
     buttons: {
         display: 'flex',

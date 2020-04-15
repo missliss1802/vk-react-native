@@ -3,21 +3,22 @@ import { View, Text, TextInput, StyleSheet, Button, ActivityIndicator, Touchable
 
 const UsersData = (props) => {
     var secret = props.is_closed === true ? "Закрытый профиль" : "";
-    console.log(secret)
+    console.log(props)
       return (
       <ScrollView vertical>
-          <View style={styles.userView}>
-            <Text onPress={() => {props.user_data(props.id, props.name)}} style={styles.user}>{props.name}</Text>
-            <Text style={styles.closed}>{secret}</Text>
-        <View>
-            <Image style={styles.img} source={{uri: props.photo}}/>
-        </View>
-                {/* {!props.online ? null : <div className='online'></div>} */}
-            <View>
-                <Text style={styles.user} id={props.id}>Город: {props.city}</Text>
+        <TouchableHighlight onPress={() => {props.user_data(props.id, props.name)}}>
+            <View style={styles.userView}>
+                <Text style={styles.user}>{props.name}</Text>
+                <Text style={styles.closed}>{secret}</Text>
+                <View style={{position: 'relative'}}>
+                    <Image style={styles.img} source={{uri: props.photo}}/>
+                    {props.online ? <View style={styles.online}></View> : null}
+                </View>
+                <View>
+                    <Text style={styles.user} id={props.id}>Город: {props.city}</Text>
+                </View>
             </View>
-        </View>
-      <View style={styles.hr}></View>
+        </TouchableHighlight>
       </ScrollView>
           )
   }
@@ -32,7 +33,11 @@ const UsersData = (props) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        marginTop: 20, 
+        padding: 20,
+        margin: 20,
+        borderWidth: 1,
+        borderColor: '#aaa',
+        borderRadius: 5
     },
     img: {
         width: 100,
@@ -48,6 +53,15 @@ const UsersData = (props) => {
     },
     closed: {
         color: '#69E563'
+    },
+    online: {
+        borderRadius: 10,
+        backgroundColor: '#D0FF00',
+        width: 15,
+        height: 15,
+        position: 'absolute',
+        top: 100,
+        left: 100
     }
 })
 

@@ -9,6 +9,7 @@ import cityIdReducer from './cityIdReducer'
 import idReducer from './idReducer'
 import userInfoReducer from './userInfoReducer'
 import tokenReducer from './tokenReducer'
+import themeReducer from './themeReducer'
 import friendsReducer from './friendsReducer'
 
 let reducers = combineReducers({
@@ -22,7 +23,8 @@ let reducers = combineReducers({
 	userInfo: userInfoReducer,
 	id: idReducer,
 	token: tokenReducer,
-	friends: friendsReducer
+	friends: friendsReducer,
+	theme: themeReducer,
 });
 
 let store = createStore(reducers);

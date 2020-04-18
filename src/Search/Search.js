@@ -1,11 +1,14 @@
 import React, {useState, useEffect, useDebugValue, Children} from 'react';
 import getQuery from './../../api.js'
-import { View, Text, TextInput, StyleSheet, Button, ActivityIndicator, TouchableHighlight, Image, ScrollView, AsyncStorage } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, ScrollView, Image} from 'react-native';
 import {country_data} from './../redux/state'
 import UsersData from './../UsersData/UsersData'
 import FormInput from './../FormInput/FormInput'
 import Menu from './../Menu/Menu'
 import Data from './../Data/Data'
+import ThemeContainer from './../ThemeContainer/ThemeContainer'
+import FavoritesMenu from '../FavoritesMenu/FavoritesMenu';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Search = (props) => {
   let [load, setLoad] = useState(false);
@@ -16,7 +19,7 @@ const Search = (props) => {
   let [id_c, setCid] = useState('');
   let [id, setId] = useState('')
   let [username, setUsername] = useState('')
-  let [data_user, setDataUser] = useState([]);
+  let [menu, setMenu] = useState(false)
 	let showMenu = () => {
 		hide == false ? setHide(true) : setHide(false);
     }
@@ -44,6 +47,7 @@ const Search = (props) => {
       setLoad(true);
 		})
   }
+
 
   let getCountry = (e) => {
     props.setCountry(e);
@@ -73,18 +77,31 @@ const Search = (props) => {
     navigate('Пользователь', {user_id: id});
   }
 
+  const getMenu = () => {
+    menu ? setMenu(false) : setMenu(true)
+  }
+
   return (
-    <View style={styles.body} >
-      <FormInput {...props} userSearch={userSearch} searchName={searchName} />
+    <View style={!props.theme.theme ? stylesBlack.body : stylesWhite.body} >
+      <View style={{position: 'relative'}}>
+        <TouchableOpacity onPress={getMenu}>
+          <Image style={{width: 50, height: 50}} source={!props.theme.theme ? require('./reorder_white.png') : require('./reorder_black.png')} />
+        </TouchableOpacity>
+        {menu && <FavoritesMenu navigate={navigate} theme={props.theme.theme} />}
+      </View>
+      {<ThemeContainer />}
+      <FormInput {...props} userSearch={userSearch} searchName={searchName} theme={props.theme.theme}/>
       <Menu cityName={cityName} showMenu={showMenu} 
         hide={hide} getCountry={getCountry} 
         getCountryId={getCountryId} 
-        getCity={getCity}/>
+        getCity={getCity}
+        theme={props.theme.theme}/>
       <Data userSearch={userSearch} setHideCity={setHideCity} 
         hideCity={hideCity} setCityname={setCityname} 
-        cityName={cityName} {...props}/>
+        cityName={cityName}
+        theme={props.theme.theme} {...props}/>
       <ScrollView>{!load
-                      ? <View style={[styles.container, styles.horizontal]}>
+                      ? <View style={!props.theme.theme ? [stylesBlack.container, stylesBlack.horizontal] : [stylesWhite.container, stylesWhite.horizontal]}>
                           <ActivityIndicator size="large" color="#0000ff" />
                         </View>
                       : props.users.users.map((item) => { 
@@ -94,6 +111,7 @@ const Search = (props) => {
                                             online = {item.online}
                                             photo = {item.photo_100}
                                             is_closed = {item.is_closed}
+                                            theme={props.theme.theme}
                                             city = {'city' in item ? item.city.title : 'не указан'}/> 
                         }) }
       </ScrollView>
@@ -101,10 +119,31 @@ const Search = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
+const stylesBlack = StyleSheet.create({
   body: {
     alignContent: 'center',
     backgroundColor: 'black',
+    width: '100%',
+    height: '100%'
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  horizontal: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+    alignItems: 'center'
+  }
+})
+
+const stylesWhite = StyleSheet.create({
+  body: {
+    alignContent: 'center',
+    backgroundColor: '#fff',
     width: '100%',
     height: '100%'
   },

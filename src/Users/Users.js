@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import moment from 'moment';
 import 'moment/locale/ru'
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 
 const Users = (props) => {
 	//debugger;
@@ -89,6 +89,10 @@ const Users = (props) => {
 	let last_time_string = Math.ceil(date_now).toString();
 	if ((last_time_string[last_time_string.length - 1] == '1') && (Math.ceil(date_now) < 120)) {
 		minCount = ' минуту назад'
+	} else if (last_time_string[last_time_string.length - 1] + last_time_string[last_time_string.length - 2] == '11'
+			|| last_time_string[last_time_string.length - 1] + last_time_string[last_time_string.length - 2] == '12'
+			|| last_time_string[last_time_string.length - 1] + last_time_string[last_time_string.length - 2] == '13'
+			|| last_time_string[last_time_string.length - 1] + last_time_string[last_time_string.length - 2] == '14') {
 	} else if ((last_time_string[last_time_string.length - 1] == '2'
 			|| last_time_string[last_time_string.length - 1] == '3'
 			|| last_time_string[last_time_string.length - 1] == '4') && (Math.ceil(date_now) < 120)) {
@@ -127,65 +131,65 @@ const Users = (props) => {
 	}
 	return (
 		<ScrollView vertical>
-			<View style={styles.body}>
-				<Text style={styles.name}>{ name }</Text>
-				<Text style={styles.text1}>{ online }</Text>
-				<Text style={styles.text}>Последний раз был(а) в сети:</Text>
-				<Text style={styles.text1}>{lastseen}</Text>
-				<Text style={styles.text1}>{last_time}</Text>
-				<Text style={styles.text}>Статус: { status }</Text>
+			<View style={!props.theme ? stylesBlack.body : stylesWhite.body}>
+				<Text style={!props.theme ? stylesBlack.name : stylesWhite.name}>{ name }</Text>
+				<Text style={!props.theme ? stylesBlack.text1 : stylesWhite.text1}>{ online }</Text>
+				<Text style={!props.theme ? stylesBlack.text : stylesWhite.text}>Последний раз был(а) в сети:</Text>
+				<Text style={!props.theme ? stylesBlack.text1 : stylesWhite.text1}>{lastseen}</Text>
+				<Text style={!props.theme ? stylesBlack.text1 : stylesWhite.text1}>{last_time}</Text>
+				<Text style={!props.theme ? stylesBlack.text : stylesWhite.text}>Статус: { status }</Text>
 				<View >
-					<Image style={styles.img} source={{uri: ava}} alt=""/>
+					<Image style={!props.theme ? stylesBlack.img : stylesWhite.img} source={{uri: ava}} alt=""/>
 				</View>
-				<View style={styles.info}>
-					<Text style={styles.text}>Дата рождения: </Text>
-					<Text style={styles.text2}>{ bdate }</Text>
+				<View style={!props.theme ? stylesBlack.info : stylesWhite.info}>
+					<Text style={!props.theme ? stylesBlack.text : stylesWhite.text}>Дата рождения: </Text>
+					<Text style={!props.theme ? stylesBlack.text2 : stylesWhite.text2}>{ bdate }</Text>
 				</View>
-				<View style={styles.info}>
-					<Text style={styles.text}>Пол: </Text>
-					<Text style={styles.text2}>{ sex }</Text>
+				<View style={!props.theme ? stylesBlack.info : stylesWhite.info}>
+					<Text style={!props.theme ? stylesBlack.text : stylesWhite.text}>Пол: </Text>
+					<Text style={!props.theme ? stylesBlack.text2 : stylesWhite.text2}>{ sex }</Text>
 				</View>
-				<View style={styles.info}>
-					<Text style={styles.text}>Страна: </Text>
-					<Text style={styles.text2}>{ country }</Text>
+				<View style={!props.theme ? stylesBlack.info : stylesWhite.info}>
+					<Text style={!props.theme ? stylesBlack.text : stylesWhite.text}>Страна: </Text>
+					<Text style={!props.theme ? stylesBlack.text2 : stylesWhite.text2}>{ country }</Text>
 				</View>
-				<View style={styles.info}>
-					<Text style={styles.text}>Город: </Text>
-					<Text style={styles.text2}>{ city }</Text></View>
-				<TouchableHighlight onPress={() => props.get_friends(props.user.id)}>
-					<View style={styles.info}>
-						<Text style={styles.text}>Друзья: </Text>
-						<Text style={styles.text2}>{ friends }</Text>
+				<View style={!props.theme ? stylesBlack.info : stylesWhite.info}>
+					<Text style={!props.theme ? stylesBlack.text : stylesWhite.text}>Город: </Text>
+					<Text style={!props.theme ? stylesBlack.text2 : stylesWhite.text2}>{ city }</Text></View>
+				<TouchableOpacity onPress={() => props.get_friends(props.user.id)}>
+					<View style={!props.theme ? stylesBlack.info : stylesWhite.info}>
+						<Text style={!props.theme ? stylesBlack.text : stylesWhite.text}>Друзья: </Text>
+						<Text style={!props.theme ? stylesBlack.text2 : stylesWhite.text2}>{ friends }</Text>
 					</View>
-				</TouchableHighlight>
-				<View style={styles.info}>
-					<Text style={styles.text}>Телефон: </Text>
-					<Text style={styles.text2}>{ tele }</Text>
+				</TouchableOpacity>
+				<View style={!props.theme ? stylesBlack.info : stylesWhite.info}>
+					<Text style={!props.theme ? stylesBlack.text : stylesWhite.text}>Телефон: </Text>
+					<Text style={!props.theme ? stylesBlack.text2 : stylesWhite.text2}>{ tele }</Text>
 				</View>
-				<View style={styles.info}>
-					<Text style={styles.text}>Фото: </Text>
-					<Text style={styles.text2}>{ photo }</Text>
+				<View style={!props.theme ? stylesBlack.info : stylesWhite.info}>
+					<Text style={!props.theme ? stylesBlack.text : stylesWhite.text}>Фото: </Text>
+					<Text style={!props.theme ? stylesBlack.text2 : stylesWhite.text2}>{ photo }</Text>
 				</View>
-				<View style={styles.info}>
-					<Text style={styles.text}>Видео: </Text>
-					<Text style={styles.text2}>{ video }</Text>
+				<View style={!props.theme ? stylesBlack.info : stylesWhite.info}>
+					<Text style={!props.theme ? stylesBlack.text : stylesWhite.text}>Видео: </Text>
+					<Text style={!props.theme ? stylesBlack.text2 : stylesWhite.text2}>{ video }</Text>
 				</View>
-				<View style={styles.info}>
-					<Text style={styles.text}>Подписок: </Text>
-					<Text style={styles.text2}>{ pages }</Text>
+				<View style={!props.theme ? stylesBlack.info : stylesWhite.info}>
+					<Text style={!props.theme ? stylesBlack.text : stylesWhite.text}>Подписок: </Text>
+					<Text style={!props.theme ? stylesBlack.text2 : stylesWhite.text2}>{ pages }</Text>
 				</View>
-				<View style={styles.info}>
-					<Text style={styles.text}>Подписчиков: </Text>
-					<Text style={styles.text2}>{ followers }</Text>
+				<View style={!props.theme ? stylesBlack.info : stylesWhite.info}>
+					<Text style={!props.theme ? stylesBlack.text : stylesWhite.text}>Подписчиков: </Text>
+					<Text style={!props.theme ? stylesBlack.text2 : stylesWhite.text2}>{ followers }</Text>
 				</View>
 			</View>
 		</ScrollView>
 		)
 }
 
-const styles = StyleSheet.create({
+const stylesBlack = StyleSheet.create({
 	name: {
-		color: 'white',
+		color: '#fff',
 		marginBottom: 5,
 		fontSize: 30,
 		textAlign: 'center'
@@ -196,7 +200,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10
 	},
 	text: {
-		color: 'white',
+		color: '#fff',
 		marginBottom: 5,
 		fontSize: 20,
 		marginLeft: 10,
@@ -219,6 +223,52 @@ const styles = StyleSheet.create({
 	},
 	text1: {
 		color: '#69E563',
+		marginBottom: 5,
+		fontSize: 20,
+		textAlign: 'center'
+	},
+	image: {
+		width: 10,
+		height: 10
+	}
+})
+
+const stylesWhite = StyleSheet.create({
+	name: {
+		color: '#000',
+		marginBottom: 5,
+		fontSize: 30,
+		textAlign: 'center'
+	},
+	info: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		paddingHorizontal: 10
+	},
+	text: {
+		color: '#000',
+		marginBottom: 5,
+		fontSize: 20,
+		marginLeft: 10,
+	},
+	text2: {
+		fontSize: 20,
+		color: '#CD9BFF',
+		marginRight: 10
+	},
+	img: {
+		width: 300,
+		height: 300,
+		marginBottom: 30,
+		marginTop: 30,
+		marginLeft: '8%'
+	},
+	body: {
+		display: "flex",
+		marginTop: 30
+	},
+	text1: {
+		color: '#CD9BFF',
 		marginBottom: 5,
 		fontSize: 20,
 		textAlign: 'center'

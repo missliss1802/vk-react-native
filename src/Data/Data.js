@@ -34,7 +34,7 @@ const Data = (props) => {
     return (
       <ScrollView style={{height: props.hideCity ? '70%' : 0}}>
         {props.hideCity && props.cities.cities.map((item) => {
-          return <City cityLoad={cityLoad} key={item.id} id={item.id} city={item.title} />
+          return <City theme={props.theme} cityLoad={cityLoad} key={item.id} id={item.id} city={item.title} />
         })}
       </ScrollView>
     )

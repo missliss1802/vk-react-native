@@ -15,11 +15,11 @@ import Data from './../Data/Data';
 import ThemeContainer from './../ThemeContainer/ThemeContainer';
 import FavoritesMenu from '../FavoritesMenu/FavoritesMenu';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {getToken} from '../helpers/loginHelpers.js';
 
 const Search = ({
   setName,
   city_id,
-  token,
   setUsers,
   name,
   setCountry,
@@ -30,24 +30,25 @@ const Search = ({
   navigation,
   users,
 }) => {
-  let [load, setLoad] = useState(false);
-  let [data, setData] = useState([]);
-  let [hide, setHide] = useState(false);
-  let [hideCity, setHideCity] = useState(false);
-  let [cityName, setCityname] = useState('');
-  let [id_c, setCid] = useState('');
-  let [id, setId] = useState('');
-  let [username, setUsername] = useState('');
-  let [menu, setMenu] = useState(false);
-  let showMenu = () => {
+  const token = getToken();
+  const [load, setLoad] = useState(false);
+  const [data, setData] = useState([]);
+  const [hide, setHide] = useState(false);
+  const [hideCity, setHideCity] = useState(false);
+  const [cityName, setCityname] = useState('');
+  const [id_c, setCid] = useState('');
+  const [id, setId] = useState('');
+  const [username, setUsername] = useState('');
+  const [menu, setMenu] = useState(false);
+  const showMenu = () => {
     hide === false ? setHide(true) : setHide(false);
   };
-  let searchName = e => {
+  const searchName = e => {
     setName(e);
   };
   useEffect(() => {
-    let method = 'users.search';
-    let params = `q=${name.name}&country=${id_c}&city=${
+    const method = 'users.search';
+    const params = `q=${name.name}&country=${id_c}&city=${
       city_id.city_id
     }&count=50&fields=photo_100,first_name,last_name,city,country,online`;
     getQuery(method, params, token.token).then(data => {
@@ -57,9 +58,9 @@ const Search = ({
     });
   }, [data.count]);
 
-  let userSearch = () => {
-    let method = 'users.search';
-    let params = `q=${name.name}&country=${id_c}&city=${
+  const userSearch = () => {
+    const method = 'users.search';
+    const params = `q=${name.name}&country=${id_c}&city=${
       city_id.city_id
     }&count=50&fields=photo_100,first_name,last_name,city,country,online`;
     getQuery(method, params, token.token).then(data => {
@@ -69,11 +70,11 @@ const Search = ({
     });
   };
 
-  let getCountry = e => {
+  const getCountry = e => {
     setCountry(e);
   };
 
-  let getCountryId = () => {
+  const getCountryId = () => {
     country_data.forEach(item => {
       if (country.country.toLowerCase() === item.title.toLowerCase()) {
         setCountryId(item.id);
@@ -82,7 +83,7 @@ const Search = ({
     });
   };
 
-  let getCity = e => {
+  const getCity = e => {
     setCity(e);
     setCityname(e);
     setHideCity(true);
@@ -90,7 +91,7 @@ const Search = ({
 
   const {navigate} = navigation;
 
-  let user_data = (id, name) => {
+  const navigateToUser = (id, name) => {
     setId(id);
     setUsername(name);
     setId(id);
@@ -155,7 +156,7 @@ const Search = ({
               <UsersData
                 key={item.id}
                 name={item.first_name + ' ' + item.last_name}
-                user_data={user_data}
+                navigateToUser={navigateToUser}
                 id={item.id}
                 online={item.online}
                 photo={item.photo_100}

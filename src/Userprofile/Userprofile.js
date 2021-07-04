@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Users from './../Users/Users';
 import getQuery from './../../api';
+import {pathOr} from 'ramda';
 import {
   View,
   StyleSheet,
@@ -27,7 +28,7 @@ const Userprofile = ({navigation, theme, userInfo}) => {
   const {navigate} = navigation;
 
   useEffect(() => {
-    const params_id = navigation.state.params;
+    const params_id = pathOr('', ['state', 'params'], navigation);
     const method = 'users.get';
     const params = `user_ids=${
       params_id.user_id

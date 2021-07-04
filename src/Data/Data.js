@@ -19,8 +19,8 @@ const Data = ({
 }) => {
   const token = getToken();
   const [data, setData] = useState([]);
-  const cityLoad = (city, id) => {
-    setCityname(city);
+  const cityLoad = (_city, id) => {
+    setCityname(_city);
     setHideCity(false);
     setCityId(id);
     userSearch(id);

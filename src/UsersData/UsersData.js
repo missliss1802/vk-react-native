@@ -8,38 +8,42 @@ import {
   ScrollView,
 } from 'react-native';
 
-const UsersData = props => {
-  var secret = props.is_closed === true ? 'Закрытый профиль' : '';
+const UsersData = ({
+  is_closed,
+  navigateToUser,
+  theme,
+  photo,
+  id,
+  city,
+  name,
+  online,
+}) => {
+  const secret = is_closed === true ? 'Закрытый профиль' : '';
   return (
     <ScrollView vertical>
       <TouchableHighlight
         onPress={() => {
-          props.navigateToUser(props.id, props.name);
+          navigateToUser(id, name);
         }}>
-        <View
-          style={!props.theme ? stylesBlack.userView : stylesWhite.userView}>
-          <Text style={!props.theme ? stylesBlack.user : stylesWhite.user}>
-            {props.name}
+        <View style={!theme ? stylesBlack.userView : stylesWhite.userView}>
+          <Text style={!theme ? stylesBlack.user : stylesWhite.user}>
+            {name}
           </Text>
-          <Text style={!props.theme ? stylesBlack.closed : stylesWhite.closed}>
+          <Text style={!theme ? stylesBlack.closed : stylesWhite.closed}>
             {secret}
           </Text>
           <View style={{position: 'relative'}}>
             <Image
-              style={!props.theme ? stylesBlack.img : stylesWhite.img}
-              source={{uri: props.photo}}
+              style={!theme ? stylesBlack.img : stylesWhite.img}
+              source={{uri: photo}}
             />
-            {props.online ? (
-              <View
-                style={!props.theme ? stylesBlack.online : stylesWhite.online}
-              />
+            {online ? (
+              <View style={!theme ? stylesBlack.online : stylesWhite.online} />
             ) : null}
           </View>
           <View>
-            <Text
-              style={!props.theme ? stylesBlack.user : stylesWhite.user}
-              id={props.id}>
-              Город: {props.city}
+            <Text style={!theme ? stylesBlack.user : stylesWhite.user} id={id}>
+              Город: {city}
             </Text>
           </View>
         </View>

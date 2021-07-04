@@ -4,13 +4,14 @@ import VKLogin from 'react-native-vkontakte-login';
 import ThemeContainer from './../ThemeContainer/ThemeContainer';
 import AsyncStorage from '@react-native-community/async-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {setToken} from '../helpers/loginHelpers';
 
-const Login = ({navigation, setToken, theme}) => {
+const Login = ({navigation, theme}) => {
   const {navigate} = navigation;
   let loginApi = async () => {
     try {
       const auth = await VKLogin.login(['friends', 'photos', 'stories']);
-      setToken(auth.access_token);
+      await setToken(auth.access_token);
       auth.user_id &&
         AsyncStorage.setItem('myId', auth.user_id, err => {
           if (err) {
